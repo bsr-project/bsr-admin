@@ -1,0 +1,4 @@
+export enum LOCAL_STORAGE_KEY {
+  TOKEN,
+  USER_NAME
+}

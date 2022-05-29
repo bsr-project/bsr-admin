@@ -1,0 +1,121 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+.flexC {
+  display: flex;
+  align-items: center;
+}
+
+.flexCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.flexCC {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flexBC {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// 字体大小
+
+@for $i from 12 to 50 {
+  .fs-#{$i} {
+    font-size: #{$i}px !important;
+  }
+}
+
+// 循环创建 mt mb ml mr pt pb pl pr
+
+@for $i from 1 through 10 {
+  $num: $i * 5;
+
+  .mt-#{$num} {
+    margin-top: #{$num}px !important;
+  }
+
+  .mb-#{$num} {
+    margin-bottom: #{$num}px !important;
+  }
+
+  .ml-#{$num} {
+    margin-left: #{$num}px !important;
+  }
+
+  .mr-#{$num} {
+    margin-right: #{$num}px !important;
+  }
+
+  .pt-#{$num} {
+    padding-top: #{$num}px !important;
+  }
+
+  .pb-#{$num} {
+    padding-bottom: #{$num}px !important;
+  }
+
+  .pl-#{$num} {
+    padding-left: #{$num}px !important;
+  }
+
+  .pr-#{$num} {
+    padding-right: #{$num}px !important;
+  }
+}
+
+.w100 {
+  width: 100%;
+}
+
+.h100 {
+  height: 100%;
+}
+
+.cl-white {
+  color: #fff;
+}
+
+.fw {
+  font-weight: 700;
+}
+
+.el-drawer {
+  .el-drawer__body {
+    padding: 0 20px;
+
+    display: flex;
+    flex-direction: column;
+
+    .drawer-container {
+      flex: 1;
+    }
+
+    .drawer-footer {
+      height: 50px;
+
+      display: flex;
+      align-items: center;
+    }
+
+    .el-date-editor {
+      width: 100%;
+    }
+  }
+}
