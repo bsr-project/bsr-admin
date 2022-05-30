@@ -12,6 +12,7 @@ import { LOCAL_STORAGE_KEY } from '@/enums/LocalStroage'
 import AuthApi from '@/api/Auth/Auth'
 import _ from 'lodash'
 import { Message } from 'element-ui'
+import router from '@/router'
 
 export interface IUserState {
   token: string
@@ -40,8 +41,8 @@ class User extends VuexModule implements IUserState {
     data.username = data.username.trim()
     const res = await AuthApi.Instance().Login(data)
 
-    const username = _.get(res, 'data.username')
-    const access_token = _.get(res, 'data.access_token')
+    const username = _.get(res, 'username')
+    const access_token = _.get(res, 'access_token')
 
     if (!access_token) {
       Message.error(res.message)
@@ -51,7 +52,15 @@ class User extends VuexModule implements IUserState {
     this.SET_NAME(username)
     this.SET_TOKEN(access_token)
 
+    router.push('/')
+
     return Promise.resolve(res)
+  }
+
+  @Action
+  public ClearToken() {
+    this.SET_NAME('')
+    this.SET_TOKEN('')
   }
 }
 

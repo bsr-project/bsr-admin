@@ -3,6 +3,7 @@ import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import Singleton from '@/scripts/base/Singleton'
 import { UserModule } from '@/store/modules/User'
 import { Message, MessageBox } from 'element-ui'
+import router from '@/router'
 
 export default class Request extends Singleton {
   private axiosInstance: AxiosInstance
@@ -23,15 +24,29 @@ export default class Request extends Singleton {
       }
     })
 
-    this.axiosInstance.interceptors.response.use((config) => {
-      const code = _.get(config.data, 'code', 1)
-      if (code === 1) {
-        const message = _.get(config.data, 'message', 'Error')
-        Message.error(message)
-        return Promise.reject(new Error(message))
+    this.axiosInstance.interceptors.response.use((response) => {
+      const code = _.get(response.data, 'code', 1)
+
+      console.log(response.data)
+
+      if (code === 0) return response.data
+
+      const message = _.get(response.data, 'message', 'Error')
+      // 提示消息
+      Message.error(message)
+
+      // 做相应的错误处理
+      // 不等于 0 则为失败响应
+      switch (code) {
+        // 登录失效
+        case 1001: {
+          UserModule.ClearToken()
+          router.push('/login')
+          break
+        }
       }
 
-      return config.data
+      return Promise.reject(new Error(message))
     })
   }
 
