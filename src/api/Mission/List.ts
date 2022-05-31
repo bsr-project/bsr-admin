@@ -1,11 +1,22 @@
 import Request from '@/scripts/base/Request'
-import { SubMissionChildrenQueryData } from '@/views/Mission/List'
+import {
+  CreateMissionQueryData,
+  SubMissionChildrenQueryData
+} from '@/views/Mission/List'
 
 export default class MissionListApi extends Request {
   GetMissions() {
     return this.request({
       url: '/mission',
       method: 'GET'
+    })
+  }
+
+  CreateMission(data: CreateMissionQueryData) {
+    return this.request({
+      url: '/mission',
+      method: 'POST',
+      data
     })
   }
 

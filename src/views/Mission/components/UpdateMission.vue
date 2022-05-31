@@ -115,7 +115,7 @@ import { UPDATE_DRAWER_TYPE } from '@/enums/UpdateDrawer'
 import _ from 'lodash'
 import moment from 'moment'
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
-import { SubMissionQueryData, SubMissionChildrenQueryData, SubMissionEditQueryData, CreateMissionQueryData } from '../List'
+import { SubMissionQueryData, SubMissionChildrenQueryData, SubMissionEditQueryData, CreateMissionQueryData, MissionQueryData } from '../List'
 
 @Component({
   name: 'UpdateMission'
@@ -235,16 +235,35 @@ export default class UpdateMission extends Vue {
 
   async submit() {
 
+    this.query.start_time = _.get(this.date, '0', '')
+    this.query.end_time = _.get(this.date, '1', '')
+
+    this.query.action_date = this.actionDate
+
     if (this.type === UPDATE_DRAWER_TYPE.CREATE) {
-      console.log('create')
+      const query: CreateMissionQueryData = {
+        title: this.query.title,
+        content: this.query.content,
+        action_date: this.query.action_date,
+        start_time: this.query.start_time,
+        end_time: this.query.end_time,
+        children: []
+      }
+
+      _.forEach(this.subMissionList, item => {
+        query.children.push({
+          title: item.title,
+          start_time: _.get(item.date, '0', ''),
+          end_time: _.get(item.date, '1', '')
+        })
+      })
+
+      await MissionListApi.Instance().CreateMission(query)
+
+      this.$message.success('新增成功')
     } else {
       this.query.children.create = []
       this.query.children.update = []
-
-      this.query.start_time = _.get(this.date, '0', '')
-      this.query.end_time = _.get(this.date, '1', '')
-
-      this.query.action_date = this.actionDate
 
       const subMissionList = _.cloneDeep(this.subMissionList)
 
@@ -264,11 +283,10 @@ export default class UpdateMission extends Vue {
       await MissionListApi.Instance().UpdateMission(this.query)
 
       this.$message.success('修改成功')
-      this.$emit('reload')
-      this.$emit('update:visible', false)
     }
 
-
+    this.$emit('reload')
+    this.$emit('update:visible', false)
   }
 }
 </script>

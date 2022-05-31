@@ -27,8 +27,6 @@ export default class Request extends Singleton {
     this.axiosInstance.interceptors.response.use((response) => {
       const code = _.get(response.data, 'code', 1)
 
-      console.log(response.data)
-
       if (code === 0) return response.data
 
       const message = _.get(response.data, 'message', 'Error')

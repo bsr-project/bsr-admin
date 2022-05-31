@@ -14,8 +14,13 @@ export type MissionQueryData = {
  */
 export type CreateMissionQueryData = Omit<
   MissionQueryData,
-  'mission_id' | 'mission_pid'
->
+  'mission_id' | 'mission_pid' | 'children'
+> & {
+  children: Omit<
+    MissionQueryData,
+    'mission_id' | 'mission_pid' | 'content' | 'action_date' | 'children'
+  >[]
+}
 
 export type SubMissionQueryData = Omit<
   MissionQueryData,
