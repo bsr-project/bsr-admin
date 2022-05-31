@@ -1,6 +1,7 @@
 import Request from '@/scripts/base/Request'
 import {
   CreateMissionQueryData,
+  DeleteMissionQueryData,
   SubMissionChildrenQueryData
 } from '@/views/Mission/List'
 
@@ -25,6 +26,13 @@ export default class MissionListApi extends Request {
       url: `/mission/${data.mission_id}`,
       method: 'PATCH',
       data
+    })
+  }
+
+  DeleteMission(data: DeleteMissionQueryData) {
+    return this.request({
+      url: `/mission/${data.mission_id}`,
+      method: 'DELETE'
     })
   }
 }

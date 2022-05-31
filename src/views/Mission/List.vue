@@ -11,12 +11,13 @@
       <el-table-column prop="title" label="任务标题" width="200"></el-table-column>
       <el-table-column prop="content" label="任务内容" min-width="300"></el-table-column>
       <el-table-column prop="action_date" label="任务日期" width="100"></el-table-column>
-      <el-table-column prop="start_time" label="开始时间" min-width="130"></el-table-column>
-      <el-table-column prop="end_time" label="结束时间" min-width="130"></el-table-column>
-      <el-table-column label="操作" width="160" fixed="right">
+      <el-table-column prop="start_time" label="开始时间" min-width="150"></el-table-column>
+      <el-table-column prop="end_time" label="结束时间" min-width="150"></el-table-column>
+      <el-table-column label="操作" width="220" fixed="right">
         <template #default="{ row }">
           <el-button type="primary" @click="ViewMission(row)">查看</el-button>
           <el-button type="primary" @click="EditMission(row)">编辑</el-button>
+          <el-button type="danger" @click="DeleteMission(row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -95,6 +96,16 @@ export default class UserList extends Vue {
     this.updateDrawer.data = row
     this.updateDrawer.type = UPDATE_DRAWER_TYPE.EDIT
     this.updateDrawer.visible = true
+  }
+
+  DeleteMission(row: any) {
+    this.$confirm(`确定要删除 ${row.title} 吗？`, '删除确认').then(() => {
+      MissionListApi.Instance().DeleteMission({
+        mission_id: row.mission_id
+      }).then(() => {
+        this.GetMissionList()
+      })
+    })
   }
 
   ViewMission(row: any) {

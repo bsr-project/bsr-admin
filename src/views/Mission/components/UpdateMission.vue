@@ -115,7 +115,7 @@ import { UPDATE_DRAWER_TYPE } from '@/enums/UpdateDrawer'
 import _ from 'lodash'
 import moment from 'moment'
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
-import { SubMissionQueryData, SubMissionChildrenQueryData, SubMissionEditQueryData, CreateMissionQueryData, MissionQueryData } from '../List'
+import { SubMissionQueryData, SubMissionChildrenQueryData, SubMissionEditQueryData, CreateMissionQueryData } from '../List'
 
 @Component({
   name: 'UpdateMission'

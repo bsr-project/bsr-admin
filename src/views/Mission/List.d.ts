@@ -45,3 +45,7 @@ export type SubMissionEditQueryData = Omit<
   SubMissionQueryData,
   'mission_id'
 > & { mission_id?: number; date?: string[] }
+
+export type DeleteMissionQueryData = {
+  mission_id: number
+}

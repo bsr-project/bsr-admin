@@ -21,6 +21,10 @@
       .el-table {
         height: 100%;
       }
+
+      .el-table__body-wrapper {
+        height: calc(100% - 36px);
+      }
     }
   }
 
