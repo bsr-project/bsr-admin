@@ -1,4 +1,4 @@
-import { LOCAL_STORAGE_KEY } from '@/enums/LocalStroage'
+import { LOCAL_STORAGE_KEY } from '@/enums/LocalStorage'
 import LocalStorageUtil from '@/utils/LocalStorage'
 import router from './index'
 

@@ -8,7 +8,7 @@ import {
 
 import store from '@/store'
 import LocalStorageUtil from '@/utils/LocalStorage'
-import { LOCAL_STORAGE_KEY } from '@/enums/LocalStroage'
+import { LOCAL_STORAGE_KEY } from '@/enums/LocalStorage'
 import AuthApi from '@/api/Auth/Auth'
 import _ from 'lodash'
 import { Message } from 'element-ui'

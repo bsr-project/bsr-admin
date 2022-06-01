@@ -1,4 +1,4 @@
-import { LOCAL_STORAGE_KEY } from '@/enums/LocalStroage'
+import { LOCAL_STORAGE_KEY } from '@/enums/LocalStorage'
 import Singleton from '@/scripts/base/Singleton'
 import _ from 'lodash'
 
