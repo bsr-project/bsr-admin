@@ -12,7 +12,7 @@
   }
 
   .el-scrollbar {
-    height: calc(100vh - 400px);
+    height: calc(100vh - 494px);
 
     ::v-deep {
       .el-scrollbar__view {
@@ -61,6 +61,14 @@
 
         <el-form-item label="任务内容">
           <el-input v-model="query.content" type="textarea" rows="3"></el-input>
+        </el-form-item>
+
+        <el-form-item label="任务人数">
+          <el-input v-model="query.recruit" type="number"></el-input>
+        </el-form-item>
+
+        <el-form-item label="任务地点">
+          <el-input v-model="query.location"></el-input>
         </el-form-item>
 
         <el-form-item label="任务日期">
@@ -136,8 +144,11 @@ export default class UpdateMission extends Vue {
       } else {
         this.query.mission_id = this.data.mission_id
         this.query.mission_pid = this.data.mission_pid
+        this.query.recruit = this.data.recruit
         this.query.title = this.data.title
         this.query.content = this.data.content
+        this.query.location = this.data.location
+
         _.forEach(this.data.children as SubMissionEditQueryData[], mission => {
           if (!mission.date) {
             this.$set(mission, 'date', [mission.start_time, mission.end_time])
@@ -149,7 +160,6 @@ export default class UpdateMission extends Vue {
         this.date = [this.data.start_time, this.data.end_time]
       }
 
-
     } else {
       this.resetForm()
     }
@@ -158,8 +168,10 @@ export default class UpdateMission extends Vue {
   query: SubMissionChildrenQueryData = {
     mission_id: 0,
     mission_pid: 0,
+    recruit: 0,
     title: '',
     content: '',
+    location: '',
     action_date: '',
     start_time: '',
     end_time: '',
@@ -202,8 +214,10 @@ export default class UpdateMission extends Vue {
     this.query = {
       mission_id: 0,
       mission_pid: 0,
+      recruit: 0,
       title: '',
       content: '',
+      location: '',
       action_date: '',
       start_time: '',
       end_time: '',
@@ -242,8 +256,10 @@ export default class UpdateMission extends Vue {
 
     if (this.type === UPDATE_DRAWER_TYPE.CREATE) {
       const query: CreateMissionQueryData = {
+        recruit: this.query.recruit,
         title: this.query.title,
         content: this.query.content,
+        location: this.query.location,
         action_date: this.query.action_date,
         start_time: this.query.start_time,
         end_time: this.query.end_time,

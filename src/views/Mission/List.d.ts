@@ -1,8 +1,10 @@
 export type MissionQueryData = {
   mission_id: number
   mission_pid: number
+  recruit: number
   title: string
   content: string
+  location: string
   action_date: string
   start_time: string
   end_time: string
@@ -18,13 +20,19 @@ export type CreateMissionQueryData = Omit<
 > & {
   children: Omit<
     MissionQueryData,
-    'mission_id' | 'mission_pid' | 'content' | 'action_date' | 'children'
+    | 'mission_id'
+    | 'mission_pid'
+    | 'recruit'
+    | 'content'
+    | 'location'
+    | 'action_date'
+    | 'children'
   >[]
 }
 
 export type SubMissionQueryData = Omit<
   MissionQueryData,
-  'content' | 'action_date' | 'children'
+  'recruit' | 'content' | 'location' | 'action_date' | 'children'
 >
 
 export type SubMissionChildrenQueryData = Omit<MissionQueryData, 'children'> & {
