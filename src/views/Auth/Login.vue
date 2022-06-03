@@ -15,11 +15,6 @@ export default class AuthLogin extends Vue {
   username = 'admin'
   password = '111111'
 
-  created() {
-    console.log('test')
-    console.log(UserModule.token)
-  }
-
   async login() {
     const res = await UserModule.Login({
       username: this.username,
