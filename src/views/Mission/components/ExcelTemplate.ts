@@ -38,10 +38,12 @@ export function GetExcelTemplateData(
         null,
         null,
         null,
+        null,
         null
       ],
       [
         '出队信息记录表',
+        null,
         null,
         null,
         null,
@@ -64,6 +66,7 @@ export function GetExcelTemplateData(
         data.location,
         null,
         null,
+        null,
         null
       ],
       [
@@ -77,16 +80,18 @@ export function GetExcelTemplateData(
         null,
         null,
         null,
+        null,
         null
       ],
       [
         '后台协调',
-        null,
+        data.coordinator,
         null,
         null,
         null,
         null,
         '统计人员',
+        data.statistician,
         null,
         null,
         null,
@@ -100,19 +105,47 @@ export function GetExcelTemplateData(
         null,
         null,
         '信息审核',
-        'XXX',
+        data.auditor,
+        null,
         null,
         null,
         null
       ],
-      ['图片存档', 'XXX', null, null, null, null, null, null, null, null, null],
-      [null, null, null, null, null, null, null, '现场秘书', 'XXX', null, null],
+      [
+        '图片存档',
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        '现场秘书',
+        data.scene_secretary,
+        null,
+        null,
+        null,
+        null
+      ],
       [
         '序号',
         '日期',
         '信息人',
         '蓝天编号',
-        '出行方式',
+        '出发交通工具',
+        '返回交通工具',
         '车辆数',
         '人数',
         '车牌号',
@@ -124,30 +157,30 @@ export function GetExcelTemplateData(
 
     merges: [
       // 前两行
-      { s: { c: 0, r: 0 }, e: { c: 10, r: 0 } },
-      { s: { c: 0, r: 1 }, e: { c: 10, r: 1 } },
+      { s: { c: 0, r: 0 }, e: { c: 11, r: 0 } },
+      { s: { c: 0, r: 1 }, e: { c: 11, r: 1 } },
 
       // 第 3 行
       { s: { c: 1, r: 2 }, e: { c: 5, r: 2 } },
-      { s: { c: 7, r: 2 }, e: { c: 10, r: 2 } },
+      { s: { c: 7, r: 2 }, e: { c: 11, r: 2 } },
 
       // 第 4 行
-      { s: { c: 1, r: 3 }, e: { c: 10, r: 3 } },
+      { s: { c: 1, r: 3 }, e: { c: 11, r: 3 } },
 
       // 第 5 行
       { s: { c: 1, r: 4 }, e: { c: 5, r: 4 } },
-      { s: { c: 7, r: 4 }, e: { c: 10, r: 4 } },
+      { s: { c: 7, r: 4 }, e: { c: 11, r: 4 } },
 
       // 第 6 行
       { s: { c: 1, r: 5 }, e: { c: 5, r: 5 } },
-      { s: { c: 7, r: 5 }, e: { c: 10, r: 5 } },
+      { s: { c: 7, r: 5 }, e: { c: 11, r: 5 } },
 
       // 第 7 行
-      { s: { c: 1, r: 6 }, e: { c: 10, r: 6 } },
+      { s: { c: 1, r: 6 }, e: { c: 11, r: 6 } },
 
       // 第 8 行
-      { s: { c: 0, r: 7 }, e: { c: 6, r: 7 } },
-      { s: { c: 8, r: 7 }, e: { c: 10, r: 7 } }
+      { s: { c: 0, r: 7 }, e: { c: 5, r: 7 } },
+      { s: { c: 7, r: 7 }, e: { c: 11, r: 7 } }
     ],
 
     cols: [
@@ -161,8 +194,13 @@ export function GetExcelTemplateData(
       { wpx: 100 },
       { wpx: 100 },
       { wpx: 100 },
+      { wpx: 100 },
       { wpx: 120 }
-    ]
+    ],
+
+    rows: _.times(9, () => ({
+      hpx: 26
+    }))
   }
 
   return template
@@ -172,6 +210,7 @@ export type GetExcelTemplateDataReturnType = {
   data: any[][]
   merges: Range[]
   cols: XLSX.ColInfo[]
+  rows: XLSX.RowInfo[]
 }
 
 export type TemplateDataArg = {
@@ -189,4 +228,29 @@ export type TemplateDataArg = {
    * 地点
    */
   location: string
+
+  /**
+   * 后台协调
+   */
+  coordinator: string
+
+  /**
+   * 统计人员
+   */
+  statistician: string
+
+  /**
+   * 记录整理
+   */
+  finisher: string
+
+  /**
+   * 信息审核
+   */
+  auditor: string
+
+  /**
+   * 现场秘书
+   */
+  scene_secretary: string
 }
