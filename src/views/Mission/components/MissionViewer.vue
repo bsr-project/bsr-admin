@@ -118,8 +118,8 @@
             <el-table-column label="编号" width="50">
               <template #default="{ $index }">{{ $index + 1 }}</template>
             </el-table-column>
-            <el-table-column label="姓名" prop="user.realname" width="100"></el-table-column>
-            <el-table-column label="蓝天编号" prop="user.bsr_code" width="120"></el-table-column>
+            <el-table-column label="姓名" prop="user_id.realname" width="100"></el-table-column>
+            <el-table-column label="蓝天编号" prop="user_id.bsr_code" width="120"></el-table-column>
             <el-table-column v-if="HasSubmission()" label="子任务" width="200">
               <template #default="{ row }">
                 <p v-for="submission in GetMission(row.submission_id)" :key="submission">
@@ -281,9 +281,9 @@ export default class UpdateMission extends Vue {
         // 日期
         moment(this.data.action_time).format('M/D'),
         // 信息人
-        _.get(mission.user, 'realname', '未知用户'),
+        _.get(mission.user_id, 'realname', '未知用户'),
         // 蓝天编号
-        _.get(mission.user, 'bsr_code', '未知编号'),
+        _.get(mission.user_id, 'bsr_code', '未知编号'),
         // 出发交通工具
         this.GetVehicle(_.get(mission, 'sign_in_vehicle', VEHICLE.CUSTOM), _.get(mission, 'sign_in_custom_vehicle')),
         // 返回交通工具
@@ -295,7 +295,7 @@ export default class UpdateMission extends Vue {
         // 车牌号 只有开车才会显示车牌号
         _.get(mission, 'sign_in_vehicle') === VEHICLE.DRIVE ||
           _.get(mission, 'sign_out_vehicle') === VEHICLE.DRIVE ?
-          _.get(mission.user, 'car_number', '未知车牌') : '',
+          _.get(mission.user_id, 'car_number', '未知车牌') : '',
         // 出发时间
         moment(_.get(mission, 'sign_in_time')).format('HH:mm'),
         // 返回时间
