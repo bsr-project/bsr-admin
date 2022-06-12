@@ -122,7 +122,9 @@
             <el-table-column label="蓝天编号" prop="user_id.bsr_code" width="120"></el-table-column>
             <el-table-column v-if="HasSubmission()" label="子任务" width="200">
               <template #default="{ row }">
-                <p v-for="submission in GetMission(row.submission_id)" :key="submission"></p>
+                <p v-for="submission in GetMission(row.submission_id)" :key="submission">
+                  {{ GetSubmissionName(submission) }}
+                </p>
               </template>
             </el-table-column>
             <el-table-column label="状态" width="100">
@@ -194,11 +196,11 @@ export default class UpdateMission extends Vue {
     content: '',
     action_time: '',
     location: '',
-    scene_secretary: '',
     coordinator: '',
-    auditor: '',
     statistician: '',
-    finisher: ''
+    finisher: '秘书组',
+    auditor: '',
+    scene_secretary: ''
   }
 
   @Watch('visible')
@@ -235,6 +237,16 @@ export default class UpdateMission extends Vue {
   GetMission(submission_id: string) {
     const ids = _.split(submission_id, ',').map(id => _.parseInt(id))
     return _.isArray(ids) ? ids : []
+  }
+
+  GetSubmissionName(mission_id: number) {
+    const submissions = _.get(this.data, 'children', [])
+    if (submissions.length === 0) return ''
+
+    const submission = _.find(submissions, { mission_id })
+    if (!submission) return ''
+
+    return `${_.get(submission, 'title', '')} ${this.GetTime(submission.start_time)}-${this.GetTime(submission.end_time)}`
   }
 
   GetDiffTime(start_time: string, end_time: string) {
