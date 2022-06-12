@@ -1,5 +1,11 @@
 <template>
   <Container v-loading="loading" :query.sync="query" :pagination.sync="pagination">
+    <template #header>
+      <div>
+        <el-button type="success" @click="CreateUser">新增</el-button>
+      </div>
+    </template>
+
     <el-table :data="list" border>
       <el-table-column prop="username" label="用户名"></el-table-column>
       <el-table-column prop="realname" label="姓名" width="100"></el-table-column>
@@ -12,19 +18,24 @@
         </template>
       </el-table-column>
     </el-table>
+    <UpdateUser :visible.sync="updateUser.visible" :type="updateUser.type" :data="updateUser.data"
+      @reload="GetUserList"></UpdateUser>
   </Container>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import Container from '@/components/Container/index.vue'
+import UpdateUser from './components/UpdateUser.vue'
 
 import UserListApi from '@/api/User/List'
+import { UPDATE_DRAWER_TYPE } from '@/enums/UpdateDrawer'
 
 @Component({
   name: 'UserList',
   components: {
-    Container
+    Container,
+    UpdateUser
   }
 })
 export default class UserList extends Vue {
@@ -42,6 +53,16 @@ export default class UserList extends Vue {
     total: 0
   }
 
+  updateUser: {
+    visible: boolean
+    type: UPDATE_DRAWER_TYPE
+    data: Record<string, any>
+  } = {
+      visible: false,
+      type: UPDATE_DRAWER_TYPE.CREATE,
+      data: {}
+    }
+
   created() {
     this.GetUserList()
   }
@@ -57,8 +78,15 @@ export default class UserList extends Vue {
     this.loading = false
   }
 
+  CreateUser() {
+    this.updateUser.type = UPDATE_DRAWER_TYPE.CREATE
+    this.updateUser.visible = true
+  }
+
   EditUser(row: any) {
-    console.log(row)
+    this.updateUser.type = UPDATE_DRAWER_TYPE.EDIT
+    this.updateUser.data = row
+    this.updateUser.visible = true
   }
 }
 </script>
