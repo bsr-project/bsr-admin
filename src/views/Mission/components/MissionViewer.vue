@@ -249,7 +249,12 @@ export default class UpdateMission extends Vue {
     return `${_.get(submission, 'title', '')} ${this.GetTime(submission.start_time)}-${this.GetTime(submission.end_time)}`
   }
 
-  GetDiffTime(start_time: string, end_time: string) {
+  GetDiffTime(start_time: string, end_time: string | null) {
+    // 未签退
+    if (_.isNull(end_time)) {
+      return ''
+    }
+
     const h = moment(end_time).diff(start_time, 'hours')
     const m = moment(end_time).diff(start_time, 'minutes') - (h * 60)
 
