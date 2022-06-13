@@ -262,6 +262,11 @@ export default class UpdateMission extends Vue {
     return `${m >= 45 ? h + 1 : h}${m >= 15 && m < 45 ? '.5' : ''}`
   }
 
+  IsDrive(mission: any) {
+    return _.get(mission, 'sign_in_vehicle') === VEHICLE.DRIVE ||
+      _.get(mission, 'sign_out_vehicle') === VEHICLE.DRIVE
+  }
+
   ExportExcel() {
     const submission = _.values(this.submissionList)
     const submissionTime = submission.length > 0 ? _.map(submission, item => item.time).join(' ') : ''
@@ -289,12 +294,11 @@ export default class UpdateMission extends Vue {
         // 返回交通工具
         this.GetVehicle(_.get(mission, 'sign_out_vehicle', VEHICLE.CUSTOM), _.get(mission, 'sign_out_custom_vehicle')),
         // 车辆数
-        '1',
+        this.IsDrive(mission) ? '1' : '0',
         // 人数
         '1',
         // 车牌号 只有开车才会显示车牌号
-        _.get(mission, 'sign_in_vehicle') === VEHICLE.DRIVE ||
-          _.get(mission, 'sign_out_vehicle') === VEHICLE.DRIVE ?
+        this.IsDrive(mission) ?
           _.get(mission.user, 'car_number', '未知车牌') : '',
         // 出发时间
         moment(_.get(mission, 'sign_in_time')).format('HH:mm'),
