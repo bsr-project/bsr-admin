@@ -1,8 +1,22 @@
+<style lang="scss" scoped>
+.el-input {
+  width: 200px;
+}
+</style>
+
 <template>
-  <div>
-    <el-input v-model="username"></el-input>
-    <el-input v-model="password"></el-input>
-    <el-button @click="login">登录</el-button>
+  <div class="flexCC">
+    <div>
+      <el-form label-width="100">
+        <el-form-item label="用户名">
+          <el-input v-model="username"></el-input>
+        </el-form-item>
+        <el-form-item label="密码">
+          <el-input v-model="password" type="password"></el-input>
+        </el-form-item>
+      </el-form>
+      <el-button type="primary" @click="login">登录</el-button>
+    </div>
   </div>
 </template>
 
@@ -12,16 +26,19 @@ import { UserModule } from '@/store/modules/User'
 
 @Component
 export default class AuthLogin extends Vue {
-  username = 'admin'
-  password = '111111'
+  username = ''
+  password = ''
 
   async login() {
-    const res = await UserModule.Login({
+    if (this.username === '' || this.password === '') {
+      this.$message.error('请输入用户名和密码')
+      return
+    }
+
+    await UserModule.Login({
       username: this.username,
       password: this.password
     })
-
-    console.log(res)
   }
 }
 </script>
