@@ -16,7 +16,6 @@ router.beforeEach(async (to, form, next) => {
       next()
     }
   } else {
-    console.log('无 token')
     // 不验证 token
     if (~whiteList.indexOf(to.path)) {
       next()
