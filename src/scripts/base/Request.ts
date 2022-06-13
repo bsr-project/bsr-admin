@@ -2,7 +2,7 @@ import _ from 'lodash'
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import Singleton from '@/scripts/base/Singleton'
 import { UserModule } from '@/store/modules/User'
-import { Message, MessageBox } from 'element-ui'
+import { Message } from 'element-ui'
 import router from '@/router'
 
 export default class Request extends Singleton {
@@ -18,10 +18,16 @@ export default class Request extends Singleton {
     }
 
     this.axiosInstance = axios.create({
-      baseURL,
-      headers: {
+      baseURL
+    })
+
+    this.axiosInstance.interceptors.request.use((request) => {
+      // 每次请求都要设置 token
+      request.headers = {
         Authorization: `Bearer ${UserModule.token}`
       }
+
+      return request
     })
 
     this.axiosInstance.interceptors.response.use((response) => {
