@@ -321,7 +321,7 @@ export default class UpdateMission extends Vue {
       .SetRows(_.concat(template.rows, _.times(missionData.length, () => ({
         hpx: 26
       }))))
-      .Download('测试表格.xlsx')
+      .Download(`${this.tableData.action_time}_${this.data.title}_导出表格.xlsx`)
   }
 }
 </script>
