@@ -8,8 +8,7 @@
     </template>
 
     <el-table :data="list" border>
-      <el-table-column prop="title" label="任务标题" width="200"></el-table-column>
-      <el-table-column prop="content" label="任务内容" min-width="300"></el-table-column>
+      <el-table-column prop="title" label="任务标题" min-width="200"></el-table-column>
       <el-table-column prop="action_date" label="任务日期" width="100"></el-table-column>
       <el-table-column prop="start_time" label="开始时间" min-width="150"></el-table-column>
       <el-table-column prop="end_time" label="结束时间" min-width="150"></el-table-column>
