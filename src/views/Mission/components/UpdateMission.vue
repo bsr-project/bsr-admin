@@ -79,7 +79,7 @@
 
         <el-form-item label="任务时间">
           <el-date-picker v-model="date" type="datetimerange" range-separator="至" start-placeholder="开始日期"
-            end-placeholder="结束日期">
+            end-placeholder="结束日期" :picker-options="missionDateOptions">
           </el-date-picker>
         </el-form-item>
 
@@ -188,23 +188,42 @@ export default class UpdateMission extends Vue {
   actionDate = ''
 
   actionDateOptions = {
-    shortcuts: [{
-      text: '今儿',
-      onClick(picker: any) {
-        picker.$emit('pick', moment().format('YYYY-MM-DD'));
+    shortcuts: [
+      {
+        text: '今儿',
+        onClick: (picker: any) => {
+          picker.$emit('pick', moment().format('YYYY-MM-DD'));
+        }
+      },
+      {
+        text: '明儿',
+        onClick: (picker: any) => {
+          picker.$emit('pick', moment().add(1, 'day').format('YYYY-MM-DD'));
+        }
+      },
+      {
+        text: '后天',
+        onClick: (picker: any) => {
+          picker.$emit('pick', moment().add(2, 'days').format('YYYY-MM-DD'));
+        }
       }
-    }, {
-      text: '明儿',
-      onClick(picker: any) {
-        picker.$emit('pick', moment().add(1, 'day').format('YYYY-MM-DD'));
-      }
-    }, {
-      text: '后天',
-      onClick(picker: any) {
-        picker.$emit('pick', moment().add(2, 'days').format('YYYY-MM-DD'));
-      }
-    }]
+    ]
+  }
 
+  missionDateOptions = {
+    shortcuts: [
+      {
+        text: '任务日期全天',
+        onClick: (picker: any) => {
+          const actionDate = moment(this.getActionDate())
+          picker.$emit('pick', [actionDate.format('YYYY-MM-DD 00:00:00'), actionDate.format('YYYY-MM-DD 23:59:59')]);
+        }
+      }
+    ]
+  }
+
+  getActionDate() {
+    return this.actionDate
   }
 
   resetForm() {
