@@ -2,7 +2,16 @@
   <Container v-loading="loading" :pagination.sync="pagination" @pagination="GetUserList">
     <template #header>
       <div>
-        <el-button type="success" @click="CreateUser">新增</el-button>
+        <el-row>
+          <el-col :span="4">
+            <el-input v-model="query.realname" placeholder="真实姓名" @keypress.native.enter="GetUserList"></el-input>
+          </el-col>
+
+          <el-col :span="4" class="ml-10">
+            <el-button type="primary" @click="GetUserList">搜索</el-button>
+            <el-button type="success" @click="CreateUser">新增</el-button>
+          </el-col>
+        </el-row>
       </div>
     </template>
 
@@ -50,6 +59,10 @@ export default class UserList extends Vue {
     total: 0
   }
 
+  query = {
+    realname: ''
+  }
+
   updateUser: {
     visible: boolean
     type: UPDATE_DRAWER_TYPE
@@ -69,7 +82,8 @@ export default class UserList extends Vue {
 
     const users = await UserListApi.Instance().GetUsers({
       page: this.pagination.page,
-      limit: this.pagination.limit
+      limit: this.pagination.limit,
+      ...this.query
     })
 
     this.pagination.total = users.count
