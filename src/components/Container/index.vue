@@ -54,8 +54,8 @@
       <div>
         <slot name="buttons"></slot>
       </div>
-      <Pagination v-show="pagination.total > 0" :total="pagination.total" :page.sync="query.page"
-        :limit.sync="query.limit" @pagination="paginationHandle" />
+      <Pagination v-show="pagination.total > 0" :total="pagination.total" :page.sync="pagination.page"
+        :limit.sync="pagination.limit" @pagination="paginationHandle" />
     </div>
   </div>
 </template>
@@ -74,20 +74,14 @@ import Pagination from '@/components/Pagination/index.vue'
 export default class Container extends Vue {
   @Prop({
     type: Object, default: () => ({
+      page: 1,
+      limit: 20,
       total: 0
     })
   }) pagination!: {
-    total: number
-  }
-
-  @Prop({
-    type: Object, default: () => ({
-      page: 1,
-      limit: 30
-    })
-  }) query!: {
     page: number
     limit: number
+    total: number
   }
 
   paginationHandle(pageInfo: any) {

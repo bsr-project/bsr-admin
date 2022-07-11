@@ -1,5 +1,5 @@
 <template>
-  <Container v-loading="loading" :query.sync="query" :pagination.sync="pagination">
+  <Container v-loading="loading" :pagination.sync="pagination" @pagination="GetUserList">
     <template #header>
       <div>
         <el-button type="success" @click="CreateUser">新增</el-button>
@@ -44,12 +44,9 @@ export default class UserList extends Vue {
 
   loading = false
 
-  query = {
-    page: 1,
-    limit: 30
-  }
-
   pagination = {
+    page: 1,
+    limit: 20,
     total: 0
   }
 
@@ -70,7 +67,10 @@ export default class UserList extends Vue {
   async GetUserList() {
     this.loading = true
 
-    const users = await UserListApi.Instance().GetUsers()
+    const users = await UserListApi.Instance().GetUsers({
+      page: this.pagination.page,
+      limit: this.pagination.limit
+    })
 
     this.pagination.total = users.count
     this.list = users.lists

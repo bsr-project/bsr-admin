@@ -5,10 +5,11 @@ import {
 import Request from '@/scripts/base/Request'
 
 export default class UserListApi extends Request {
-  GetUsers() {
+  GetUsers(params: any) {
     return this.request({
       url: '/user',
-      method: 'GET'
+      method: 'GET',
+      params
     })
   }
 

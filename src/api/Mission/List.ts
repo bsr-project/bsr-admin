@@ -6,10 +6,11 @@ import {
 } from '@/views/Mission/List'
 
 export default class MissionListApi extends Request {
-  GetMissions() {
+  GetMissions(params: any) {
     return this.request({
       url: '/mission',
-      method: 'GET'
+      method: 'GET',
+      params
     })
   }
 
