@@ -57,7 +57,7 @@ export function GetExcelTemplateData(
       ],
       [
         '时间',
-        data.action_time,
+        data.action_date,
         null,
         null,
         null,
@@ -222,7 +222,7 @@ export type TemplateDataArg = {
   /**
    * 任务时间 (2022年5月3日)
    */
-  action_time: string
+  action_date: string
 
   /**
    * 地点

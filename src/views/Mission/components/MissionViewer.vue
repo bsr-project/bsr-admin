@@ -194,7 +194,7 @@ export default class UpdateMission extends Vue {
 
   tableData: TemplateDataArg = {
     content: '',
-    action_time: '',
+    action_date: '',
     location: '',
     coordinator: '',
     statistician: '',
@@ -272,7 +272,7 @@ export default class UpdateMission extends Vue {
     const submissionTime = submission.length > 0 ? _.map(submission, item => item.time).join(' ') : ''
 
     this.tableData.content = `${this.data.title} ${submissionTime}`
-    this.tableData.action_time = moment(this.data.action_time).format('YYYY年MM月DD日')
+    this.tableData.action_date = moment(this.data.action_date).format('YYYY年MM月DD日')
     this.tableData.location = this.data.location
 
     const excel = new Excel()
@@ -321,7 +321,7 @@ export default class UpdateMission extends Vue {
       .SetRows(_.concat(template.rows, _.times(missionData.length, () => ({
         hpx: 26
       }))))
-      .Download(`${this.tableData.action_time}_${this.data.title}_导出表格.xlsx`)
+      .Download(`${this.tableData.action_date}_${this.data.title}_导出表格.xlsx`)
   }
 }
 </script>
